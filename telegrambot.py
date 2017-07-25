@@ -1,9 +1,12 @@
+import atexit
 import sys
+
 from telegram import Update, Bot
 from telegram.ext import Updater, MessageHandler, Filters
 
 from UpdateThread import UpdateThread
 from currencies import currencies
+from db import store_log, connection
 
 if len(sys.argv) > 1:
     token = sys.argv[1]
@@ -19,9 +22,10 @@ def message(bot: Bot, update: Update) -> None:
         for currency in currencies:
             amount = input_val / currency.amount
             response += '\n' + currency.icon + ' ' + currency.name + ' ' + '{0:g}'.format(amount) + currency.suf
-        update.message.reply_text(response)
     except:
-        update.message.reply_text('Неверный формат!')
+        response = 'Неверный формат!'
+    update.message.reply_text(response)
+    store_log(update, response)
 
 
 update_thread = UpdateThread()
@@ -33,3 +37,5 @@ updater.dispatcher.add_handler(MessageHandler(Filters.text, message))
 
 updater.start_polling()
 updater.idle()
+
+atexit.register(lambda: connection.close())

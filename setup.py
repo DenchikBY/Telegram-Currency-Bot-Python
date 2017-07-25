@@ -10,7 +10,6 @@ setup(
     author_email='butko.denis.95@gmail.com',
     description='Telegram bot for converting BYN to USD, EUR and RUR',
     install_requires=[
-        'requests',
-        'python-telegram-bot'
+        'requests', 'python-telegram-bot'
     ],
 )
