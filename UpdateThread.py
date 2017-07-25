@@ -13,7 +13,7 @@ class UpdateThread(threading.Thread):
     def run(self) -> None:
         super().run()
         while True:
-            message = datetime.strftime(datetime.now(), "%Y.%m.%d %H:%M:%S") + ':'
+            message = datetime.strftime(datetime.now(), "%d.%m.%Y %H:%M:%S") + ':'
             try:
                 for currency in currencies:
                     r = requests.get('http://www.nbrb.by/API/ExRates/Rates/' + str(currency.bank_code)).json()
