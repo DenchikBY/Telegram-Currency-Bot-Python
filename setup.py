@@ -11,6 +11,6 @@ setup(
     description='Telegram bot for converting BYN to USD, EUR and RUR',
     install_requires=[
         'requests',
-        'python-telegram-bot', 'telegram'
+        'python-telegram-bot'
     ],
 )
