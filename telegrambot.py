@@ -14,14 +14,14 @@ else:
 
 def message(bot: Bot, update: Update) -> None:
     try:
-        input_val = float(update.message.text)
-        response = '\U0001F1E7\U0001F1FE BYN ' + str(input_val) + 'руб.'
+        input_val = float(update.message.text.replace(',', '.'))
+        response = '\U0001F1E7\U0001F1FE BYN ' + '{0:g}'.format(input_val) + 'руб.'
         for currency in currencies:
             amount = input_val / currency.amount
-            response += '\n' + currency.icon + ' ' + currency.name + ' ' + str(amount) + currency.suf
+            response += '\n' + currency.icon + ' ' + currency.name + ' ' + '{0:g}'.format(amount) + currency.suf
         update.message.reply_text(response)
-    except Exception as e:
-        print(str(type(e)) + e.message)
+    except:
+        update.message.reply_text('Неверный формат!')
 
 
 update_thread = UpdateThread()
